@@ -30,7 +30,7 @@ process BOWTIE_ALIGN {
     """
     INDEX=\$(find -L ./ -name "*.3.ebwt" | sed 's/\\.3.ebwt\$//')
     bowtie \\
-        --threads $task.cpus \\
+        -p $task.cpus \\
         --sam \\
         -x \$INDEX \\
         -q \\
