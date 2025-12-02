@@ -3,6 +3,10 @@ nextflow.enable.dsl = 2
 /*
  * MODULE IMPORTS
  */
+
+WD = new File(".").getCanonicalPath()
+
+
 include { BOWTIE_BUILD as RRNA_BUILD } from '../../../modules/nf-core/bowtie/build/main.nf'
 include { BOWTIE_BUILD as TRNA_BUILD } from '../../../modules/nf-core/bowtie/build/main.nf'
 include { BOWTIE_BUILD as NCRNA_BUILD } from '../../../modules/nf-core/bowtie/build/main.nf'
@@ -19,13 +23,13 @@ include { SAMTOOLS_INDEX as RRNA_INDEX } from '../../../modules/nf-core/samtools
 include { SAMTOOLS_INDEX as TRNA_INDEX } from '../../../modules/nf-core/samtools/index/main.nf'
 include { SAMTOOLS_INDEX as NCRNA_INDEX } from '../../../modules/nf-core/samtools/index/main.nf'
 
-include { FEATURECOUNTS as RRNA_COUNT } from '../../../modules/nf-core/subread/featurecounts/main.nf'
-include { FEATURECOUNTS as TRNA_COUNT } from '../../../modules/nf-core/subread/featurecounts/main.nf'
-include { FEATURECOUNTS as NCRNA_COUNT } from '../../../modules/nf-core/subread/featurecounts/main.nf'
+include { SUBREAD_FEATURECOUNTS as RRNA_COUNT } from '../../../modules/nf-core/subread/featurecounts/main.nf'
+include { SUBREAD_FEATURECOUNTS as TRNA_COUNT } from '../../../modules/nf-core/subread/featurecounts/main.nf'
+include { SUBREAD_FEATURECOUNTS as NCRNA_COUNT } from '../../../modules/nf-core/subread/featurecounts/main.nf'
 
-include { UMI_DEDUP as RRNA_DEDUP } from '../../../modules/nf-core/umi_tools/dedup/main.nf'
-include { UMI_DEDUP as TRNA_DEDUP } from '../../../modules/nf-core/umi_tools/dedup/main.nf'
-include { UMI_DEDUP as NCRNA_DEDUP } from '../../../modules/nf-core/umi_tools/dedup/main.nf'
+include { UMITOOLS_DEDUP as RRNA_DEDUP } from '../../../modules/nf-core/umitools/dedup/main.nf'
+include { UMITOOLS_DEDUP as TRNA_DEDUP } from '../../../modules/nf-core/umitools/dedup/main.nf'
+include { UMITOOLS_DEDUP as NCRNA_DEDUP } from '../../../modules/nf-core/umitools/dedup/main.nf'
 
 
 /*
@@ -135,6 +139,7 @@ workflow CONTAMINANT_FILTER_SRNAS {
         rrna_counts  = COUNT_RRNA.counts
         trna_counts  = COUNT_TRNA.counts
         other_counts = COUNT_OTHER.counts
+
 
         versions     = versions
 }
